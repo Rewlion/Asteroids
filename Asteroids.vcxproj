@@ -96,7 +96,7 @@
     <ClInclude Include="src\game\components\movement_component.h" />
     <ClInclude Include="src\game\components\player_component.h" />
     <ClInclude Include="src\game\components\spawn_request_component.h" />
-    <ClInclude Include="src\game\game_objects_shapes.h" />
+    <ClInclude Include="src\game\default_settings.h" />
     <ClInclude Include="src\game\game_objects_types.h" />
     <ClInclude Include="src\game\systems\damage_system.h" />
     <ClInclude Include="src\game\systems\death_clock_system.h" />

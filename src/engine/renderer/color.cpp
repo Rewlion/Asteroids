@@ -39,7 +39,7 @@ RGB::operator uint32_t() const
   return v;
 }
 
-RGB operator*(const float l, const RGB& r)
+RGB operator*(const unsigned int l, const RGB& r)
 {
   RGB c;
   c.B = r.B * l;
@@ -49,7 +49,7 @@ RGB operator*(const float l, const RGB& r)
   return c;
 }
 
-RGB operator*(const RGB& r, const float l)
+RGB operator*(const RGB& r, const unsigned int l)
 {
   return operator*(l, r);
 }

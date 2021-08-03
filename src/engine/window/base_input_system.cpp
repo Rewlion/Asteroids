@@ -12,6 +12,6 @@ namespace Input
     m_InputObserver.OnEvent<InputEvent>([&](BaseEvent* e) {
       InputEvent* ie = reinterpret_cast<InputEvent*>(e);
       OnInput(ie->key, ie->action);
-      });
+    });
   }
 }

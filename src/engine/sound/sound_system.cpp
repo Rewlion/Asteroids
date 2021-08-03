@@ -13,7 +13,7 @@ SoundSystem::SoundSystem(Context* ecsContext)
   m_WorkerThread = std::thread(&SoundSystem::WorkerThread, this);
 }
 
-void SoundSystem::Update(const double dt)
+void SoundSystem::Update(const float dt)
 {
   LoadSounds();
   PlaySounds();

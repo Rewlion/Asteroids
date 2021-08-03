@@ -13,6 +13,8 @@ namespace Input
 
     virtual void OnInput(Key key, KeyAction action) {};
 
+    virtual void Update(const float dt) override {}
+
   private:
     EventObserver m_InputObserver;
   };

@@ -10,7 +10,7 @@ TimerSystem::TimerSystem(Context* ecsContext)
 {
 }
 
-void TimerSystem::Update(const double dt)
+void TimerSystem::Update(const float dt)
 {
   for(Entity* e: m_DoOnceTimerGroup->GetEntities())
   if (e)

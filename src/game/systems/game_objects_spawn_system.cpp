@@ -135,7 +135,7 @@ GameObjectsSpawnSystem::GameObjectsSpawnSystem(Context* ecsContext)
 {
 }
 
-void GameObjectsSpawnSystem::Update(const double dt)
+void GameObjectsSpawnSystem::Update(const float dt)
 {
   for (Entity* e: m_SpawnRequestGroup->GetEntities())
   if (e && e->IsActivated())

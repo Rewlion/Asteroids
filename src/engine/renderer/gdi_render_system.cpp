@@ -5,8 +5,6 @@
 #include <engine/renderer/text_widget_component.h>
 #include <engine/ecs/Context.h>
 
-#include <thread>
-#include <chrono>
 #include <assert.h>
 #include <Windows.h>
 #include <Gdiplus.h>
@@ -97,7 +95,7 @@ namespace
           if (x >= 0 && y >= 0 && x < size.x && y < size.y)
           {
             const size_t i = swapped ? (x * stride / 4 + y)
-              : (y * stride / 4 + x);
+                                     : (y * stride / 4 + x);
 
             bitmap[i] = static_cast<uint32_t>(color);
           }
@@ -110,7 +108,8 @@ namespace
 namespace Render
 {
   OutputAttachment::OutputAttachment()
-    : m_Format(PixelFormat::unknown)
+    : m_WindowHandler(nullptr)
+    , m_Format(PixelFormat::unknown)
     , m_Bitmap(nullptr)
     , m_Graphics(nullptr)
   {
@@ -160,7 +159,7 @@ namespace Render
 
   void OutputAttachment::DrawString(const std::wstring& text, const unsigned int size, Math::fVec2 position, Color color)
   {
-    Gdiplus::Font myFont(L"Arial", size);
+    Gdiplus::Font myFont(L"Arial", static_cast<Gdiplus::REAL>(size));
     Gdiplus::RectF layoutRect(position.x, position.y, 400.0f, 50.0f);
     Gdiplus::StringFormat format;
     format.SetAlignment(Gdiplus::StringAlignmentNear);
@@ -168,7 +167,7 @@ namespace Render
 
     m_Graphics->DrawString(
       text.c_str(),
-      text.size(),
+      static_cast<INT>(text.size()),
       &myFont,
       layoutRect,
       &format,
@@ -190,7 +189,7 @@ namespace Render
     m_RenderTarget = OutputAttachment(windowHandler, windowSize, PixelFormat::pixel32bppRGB);
   }
 
-  void GdiRenderSystem::Update(const double dt)
+  void GdiRenderSystem::Update(const float dt)
   {
     m_RenderTarget.Draw([&](uint32_t* bitmap, int stride, Math::iVec2 size)
     {
@@ -214,23 +213,14 @@ namespace Render
 
   void GdiRenderSystem::RenderStripLines(uint32_t* bitmap, int stride, Math::iVec2 size)
   {
-    for (auto* e : m_StripLinesGroup->GetEntities())
+    for (Entity* e : m_StripLinesGroup->GetEntities())
+    if (e)
+    for (auto* stripLineComponent : e->GetComponents<StripLinesComponent>())
     {
-      if (e == nullptr)
-        continue;
-
-      std::vector<StripLinesComponent*> components = e->GetComponents<StripLinesComponent>();
-      for (auto* stripLineComponent : components)
-      {
-        std::vector<StripLinesComponent::Point> points = stripLineComponent->GetPoints();
-        if (points.size() < 2)
-          continue;
-
+      std::vector<StripLinesComponent::Point> points = stripLineComponent->GetPoints();
+      if (points.size() >= 2)
         for (int i = 0; i < points.size() - 1; ++i)
-        {
           DrawLine(bitmap, stride, size, points[i], points[i + 1], stripLineComponent->GetColor());
-        }
-      }
     }
   }
 
@@ -239,7 +229,6 @@ namespace Render
     for (Entity* e: m_TextWidgetGroup->GetEntities())
     if (e)
     for (TextWidgetComponent* widget: e->GetComponents<TextWidgetComponent>())
-    if (widget)
     {
       m_RenderTarget.DrawString(widget->text, widget->size, widget->position, widget->color);
     }

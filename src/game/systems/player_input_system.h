@@ -12,7 +12,7 @@ namespace Input
     PlayerInputSystem(Context* ecsContext);
 
     virtual void OnInput(Key key, KeyAction action) override;
-    virtual void Update(const double dt) override;
+    virtual void Update(const float dt) override;
 
   private:
     Group* m_PlayerGroup;

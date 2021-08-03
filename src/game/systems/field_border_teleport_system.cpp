@@ -13,7 +13,7 @@ FieldBorderTeleportSystem::FieldBorderTeleportSystem(Context* ecsContext)
 {
 }
 
-void FieldBorderTeleportSystem::Update(const double dt)
+void FieldBorderTeleportSystem::Update(const float dt)
 {
   FieldComponent* gameField = m_GameFieldGroup->GetFirstNotNullEntity()->GetFirstComponent<FieldComponent>();
 

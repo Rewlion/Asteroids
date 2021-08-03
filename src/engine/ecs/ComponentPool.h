@@ -16,7 +16,7 @@ public:
     BaseComponent* GetComponent(ComponentID id) const;
 
 private:
-    typedef unsigned int PositionInPool;
+    typedef size_t PositionInPool;
     std::stack<PositionInPool>  ReusablePoolPositions;
     std::vector<BaseComponent*> Components;
 };

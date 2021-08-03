@@ -10,6 +10,36 @@
 
 #include <random>
 
+namespace
+{
+  Math::fVec2 GetRandomPositionOnQuadBorder(Math::fVec2 gameFieldSize)
+  {
+    Math::fVec2 position;
+
+    const unsigned char k = std::rand() % 4;
+    const float randX = static_cast<float>(std::rand() % static_cast<int>(gameFieldSize.x));
+    const float randY = static_cast<float>(std::rand() % static_cast<int>(gameFieldSize.y));
+
+    switch (k)
+    {
+    case 0:
+      position = Math::fVec2{ randX , gameFieldSize.y };
+      break;
+    case 1:
+      position = Math::fVec2{ randX , 0 };
+      break;
+    case 2:
+      position = Math::fVec2{ gameFieldSize.x, randY };
+      break;
+    case 3:
+      position = Math::fVec2{ 0, randY };
+      break;
+    }
+
+    return position;
+  }
+}
+
 AsteroidsSpawnSystem::AsteroidsSpawnSystem(Context* ecsContext)
   : LogicSystem(ecsContext)
   , m_IdentityGroup(ecsContext->GetGroup<IdentityComponent>())
@@ -17,16 +47,16 @@ AsteroidsSpawnSystem::AsteroidsSpawnSystem(Context* ecsContext)
 {
 }
 
-void AsteroidsSpawnSystem::AsteroidsSpawnSystem::Update(const double dt)
+void AsteroidsSpawnSystem::AsteroidsSpawnSystem::Update(const float dt)
 {
-  unsigned int asteroidsCount = 0;
+  unsigned int bigAsteroidsCount = 0;
   for(Entity* e: m_IdentityGroup->GetEntities())
   if (e)
   {
-    asteroidsCount += e->GetFirstComponent<IdentityComponent>()->identity == Identity::BigAsteroid;
+    bigAsteroidsCount += e->GetFirstComponent<IdentityComponent>()->identity == Identity::BigAsteroid;
   }
 
-  if (asteroidsCount == 0 && !m_TimerToSpawnAsteroidsAlreadySetup)
+  if (bigAsteroidsCount == 0 && !m_TimerToSpawnAsteroidsAlreadySetup)
   {
     FieldComponent* gameField = m_GameFieldGroup->GetFirstNotNullEntity()->GetFirstComponent<FieldComponent>();
 
@@ -35,25 +65,8 @@ void AsteroidsSpawnSystem::AsteroidsSpawnSystem::Update(const double dt)
 
       for (int i = 0; i < nAsteroidsToSpawn; ++i)
       {
-        const float rotation = std::rand() % 360;
-
-        Math::fVec2 position;
-        const unsigned char k = std::rand() % 4;
-        switch (k)
-        {
-        case 0:
-          position = Math::fVec2{ float(std::rand() % static_cast<int>(gameField->gameFieldSize.x)) , gameField->gameFieldSize.y };
-          break;
-        case 1:
-          position = Math::fVec2{ float(std::rand() % static_cast<int>(gameField->gameFieldSize.x)) , 0 };
-          break;
-        case 2:
-          position = Math::fVec2{ gameField->gameFieldSize.x, float(std::rand() % static_cast<int>(gameField->gameFieldSize.y)) };
-          break;
-        case 3:
-          position = Math::fVec2{ 0, float(std::rand() % static_cast<int>(gameField->gameFieldSize.y)) };
-          break;
-        }
+        const float rotation = static_cast<float>(std::rand() % 360);
+        const Math::fVec2 position = GetRandomPositionOnQuadBorder(gameField->gameFieldSize);
 
         SpawnRequestComponent* request = pContext->GetEntityManager()->NewEntity()->AddComponent<SpawnRequestComponent>("Spawn Asteroid Request");
         request->objectType = Identity::BigAsteroid;
@@ -65,7 +78,7 @@ void AsteroidsSpawnSystem::AsteroidsSpawnSystem::Update(const double dt)
 
     m_TimerToSpawnAsteroidsAlreadySetup = true;
   }
-  else if (asteroidsCount > 0 && m_TimerToSpawnAsteroidsAlreadySetup)
+  else if (bigAsteroidsCount > 0 && m_TimerToSpawnAsteroidsAlreadySetup)
     m_TimerToSpawnAsteroidsAlreadySetup = false;
 }
 

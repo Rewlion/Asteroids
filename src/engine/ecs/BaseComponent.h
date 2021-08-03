@@ -3,8 +3,8 @@
 #include <string>
 #include <vector>
 
-typedef unsigned int ComponentID;
-typedef unsigned int ComponentTypeId;
+typedef size_t ComponentID;
+typedef size_t ComponentTypeId;
 
 struct BaseComponent
 {

@@ -12,7 +12,7 @@
 #include <queue>
 #include <vector>
 
-typedef unsigned int ObserverID;
+typedef size_t ObserverID;
 class EventManager;
 
 enum EventObservingPriority

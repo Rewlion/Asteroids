@@ -50,7 +50,7 @@ namespace Render
   public:
     GdiRenderSystem(void* windowHandler, Math::uiVec2 windowSize, Context* ecsContext);
 
-    virtual void Update(const double dt) override;
+    virtual void Update(const float dt) override;
 
   private:
     void ClearRenderTarget(uint32_t* bitmap, int stride, Math::iVec2 size);

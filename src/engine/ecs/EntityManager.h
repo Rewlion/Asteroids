@@ -19,7 +19,7 @@ public:
     
     inline const std::vector<Entity*>& GetEntities();
 private:
-    typedef unsigned int PositionInPool;
+    typedef size_t PositionInPool;
 
     EventManager*              pEventManager;
     ComponentManager*          pComponentManager;

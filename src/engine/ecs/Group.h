@@ -4,8 +4,8 @@
 #include <vector>
 #include <stack>
 
-typedef unsigned int ComponentID;
-typedef unsigned int PositionInCache;
+typedef size_t ComponentID;
+typedef size_t PositionInCache;
 typedef size_t EntityID;
 
 class Entity;

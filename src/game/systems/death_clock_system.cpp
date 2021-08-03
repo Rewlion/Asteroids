@@ -9,7 +9,7 @@ DeathClockSystem::DeathClockSystem(Context* ecsContext)
 {
 }
 
-void DeathClockSystem::Update(const double dt)
+void DeathClockSystem::Update(const float dt)
 {
   for(Entity* e: m_DeathClockGroup->GetEntities())
   if (e)

@@ -68,7 +68,7 @@ namespace Input
     }
   }
 
-  void PlayerInputSystem::Update(const double dt)
+  void PlayerInputSystem::Update(const float dt)
   {
     Entity* player = m_PlayerGroup->GetFirstNotNullEntity();
     if (!player)

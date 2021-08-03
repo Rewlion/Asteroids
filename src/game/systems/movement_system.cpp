@@ -11,7 +11,7 @@ MovementSystem::MovementSystem(Context* ecsContext)
 {
 }
 
-void MovementSystem::Update(const double dt)
+void MovementSystem::Update(const float dt)
 {
   for(Entity* e: m_MovementGroup->GetEntities())
   if (e && e->IsActivated())
@@ -19,7 +19,7 @@ void MovementSystem::Update(const double dt)
     auto* movement = e->GetFirstComponent<MovementComponent>();
     auto* root = e->GetFirstComponent<SceneComponent>();
 
-    const float r = root->GetLocalRotation() + movement->rotationVelocity * static_cast<float>(dt);
+    const float r = root->GetLocalRotation() + movement->rotationVelocity * dt;
     root->SetLocalRotation(r);
 
     Math::fVec2 dv = { 0.0f, 0.0f };

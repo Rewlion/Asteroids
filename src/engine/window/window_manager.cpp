@@ -34,7 +34,8 @@ namespace
       static Input::KeyAction lastKeysAction[256]{ Input::KeyAction::Release };
 
       const auto action = uMsg == WM_KEYDOWN ? Input::KeyAction::Press : Input::KeyAction::Release;
-      const Input::Key key = Input::ConvertWinApiKeyToManagerKey(wParam, isExtended);
+      const unsigned int scanCode = static_cast<unsigned int>(wParam);
+      const Input::Key key = Input::ConvertWinApiKeyToManagerKey(scanCode, isExtended);
 
       if (action != lastKeysAction[wParam])
       {

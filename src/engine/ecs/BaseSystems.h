@@ -2,7 +2,7 @@
 
 class Context;
 
-typedef unsigned int SystemTypeId;
+typedef size_t SystemTypeId;
 
 class BaseSystem
 {
@@ -42,7 +42,7 @@ public:
 
     virtual ~LogicSystem() {}
 
-    virtual void Update(const double dt) = 0;
+    virtual void Update(const float dt) = 0;
 };
 
 class CleanupSystem : public BaseSystem

@@ -51,7 +51,7 @@ GuiSystem::GuiSystem(Context* ecsContext)
 
 }
 
-void GuiSystem::Update(const double dt)
+void GuiSystem::Update(const float dt)
 {
   const auto* gameField = m_GameFieldGroup->GetFirstNotNullEntity()->GetFirstComponent<FieldComponent>();
 
@@ -100,7 +100,7 @@ void GuiSystem::ReconstructPlayerLifesWidget(const unsigned int newLifesCount)
 
   const std::vector<StripLinesComponent::Point> model = Game::Utils::DefaultGameObjectsSetttings.at(Identity::PlayerShip).model;
 
-  for (int i = 0; i < newLifesCount; ++i)
+  for (unsigned int i = 0; i < newLifesCount; ++i)
   {
     Entity* e = pContext->GetEntityManager()->NewEntity();
     StripLinesComponent* elementModel = e->AddComponent<StripLinesComponent>("player life widget element");

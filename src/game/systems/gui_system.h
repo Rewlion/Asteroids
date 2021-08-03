@@ -13,7 +13,7 @@ class GuiSystem : public LogicSystem
 public:
   GuiSystem(Context* ecsContext);
 
-  virtual void Update(const double dt) override;
+  virtual void Update(const float dt) override;
 
 private:
   void ReconstructPlayerLifesWidget(const unsigned int newLifesCount);

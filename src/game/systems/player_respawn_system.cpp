@@ -19,7 +19,7 @@ PlayerRespawnSystem::PlayerRespawnSystem(Context* ecsContext)
 {
 }
 
-void PlayerRespawnSystem::Update(const double dt)
+void PlayerRespawnSystem::Update(const float dt)
 {
   const bool isPlayerAlive = m_PlayerGroup->GetFirstNotNullEntity() != nullptr;
   const auto* gameStatistics = m_GameStatisticsGroup->GetFirstNotNullEntity()->GetFirstComponent<GameStatisticsComponent>();

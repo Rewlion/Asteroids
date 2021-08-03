@@ -16,7 +16,7 @@ class SoundSystem : public LogicSystem
 public:
   SoundSystem(Context* ecsContext);
 
-  virtual void Update(const double dt) override;
+  virtual void Update(const float dt) override;
 
 private:
   void LoadSounds();

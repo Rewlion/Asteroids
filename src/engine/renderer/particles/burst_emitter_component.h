@@ -7,8 +7,8 @@ struct BurstParticlesEmitterComponent: public SceneComponent
 {
   std::vector<StripLinesComponent::Point> particleModel;
   size_t nParticlesToSpawn = 0;
-  int minParticleVelocity = 0;
-  int maxParticleVelocity = 0;
+  float minParticleVelocity = 0;
+  float maxParticleVelocity = 0;
   Math::fVec2 particleInitialSize = { 0.0f, 0.0f };
   float particleSecondsToLive = 0.0f;
 };

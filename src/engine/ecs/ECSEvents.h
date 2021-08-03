@@ -4,7 +4,7 @@
 
 class Entity;
 typedef size_t EntityID;
-typedef unsigned int ComponentTypeId;
+typedef size_t ComponentTypeId;
 
 struct EntityAddedEvent : public BaseEvent
 {

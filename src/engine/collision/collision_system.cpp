@@ -58,7 +58,7 @@ CollisionSystem::CollisionSystem(Context* ecsContext)
   ecsContext->AddCleanupSystems({ new CollisionEventsCleaner(ecsContext) });
 }
 
-void CollisionSystem::Update(const double dt)
+void CollisionSystem::Update(const float dt)
 {
   for(Entity* e1: m_CircleComponentGroup->GetEntities())
   if (e1)

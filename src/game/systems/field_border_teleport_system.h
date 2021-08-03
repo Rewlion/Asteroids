@@ -10,7 +10,7 @@ class FieldBorderTeleportSystem : public LogicSystem
 public:
   FieldBorderTeleportSystem(Context* ecsContext);
 
-  virtual void Update(const double dt) override;
+  virtual void Update(const float dt) override;
 
 private:
   Group* m_ObjectsSceneComponentGroup;

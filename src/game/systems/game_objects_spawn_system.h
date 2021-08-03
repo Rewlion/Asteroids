@@ -4,14 +4,14 @@
 
 class Group;
 class Context;
-class SpawnRequestComponent;
+struct SpawnRequestComponent;
 
 class GameObjectsSpawnSystem : public LogicSystem
 {
 public:
   GameObjectsSpawnSystem(Context* ecsContext);
 
-  virtual void Update(const double dt) override;
+  virtual void Update(const float dt) override;
 
 private:
   void Spawn(const SpawnRequestComponent* request);

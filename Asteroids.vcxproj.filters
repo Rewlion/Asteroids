@@ -26,9 +26,6 @@
     <ClCompile Include="src\engine\ecs\Group.cpp">
       <Filter>ecs</Filter>
     </ClCompile>
-    <ClCompile Include="src\engine\ecs\Events\EventUtils.cpp">
-      <Filter>ecs</Filter>
-    </ClCompile>
     <ClCompile Include="src\engine\renderer\gdi_render_system.cpp" />
     <ClCompile Include="src\game\systems\level_initialize_system.cpp" />
     <ClCompile Include="src\engine\renderer\strip_lines_component.cpp" />
@@ -49,6 +46,9 @@
     <ClCompile Include="src\game\systems\gui_system.cpp" />
     <ClCompile Include="src\engine\renderer\particles\particles_system.cpp" />
     <ClCompile Include="src\engine\sound\sound_system.cpp" />
+    <ClCompile Include="src\engine\ecs\Events\EventUtils.cpp">
+      <Filter>ecs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\engine.h" />
@@ -101,7 +101,7 @@
     <ClInclude Include="src\game\components\player_component.h" />
     <ClInclude Include="src\engine\scene_component.h" />
     <ClInclude Include="src\engine\renderer\strip_lines_component.h" />
-    <ClInclude Include="src\game\game_objects_shapes.h" />
+    <ClInclude Include="src\game\default_settings.h" />
     <ClInclude Include="src\engine\renderer\color.h" />
     <ClInclude Include="src\engine\engine_events.h" />
     <ClInclude Include="src\engine\window\base_input_system.h" />

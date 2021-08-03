@@ -16,7 +16,7 @@ namespace Render
 
   }
 
-  void ParticlesSystem::Update(const double dt)
+  void ParticlesSystem::Update(const float dt)
   {
     UpdateDirectEmitters(dt);
     UpdateBurstEmitters(dt);
