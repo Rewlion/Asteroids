@@ -35,16 +35,73 @@ namespace
 
   void DrawLine(uint32_t* bitmap, int stride, Math::iVec2 size, StripLinesComponent::Point p1, StripLinesComponent::Point p2, RGB color)
   {
-    for (float t = 0 ; t <= 1; t += 0.01f)
+    Math::iVec2 a{static_cast<int>(p1.x), static_cast<int>(p1.y) };
+    Math::iVec2 b{ static_cast<int>(p2.x), static_cast<int>(p2.y) };
+
+    if (a.x == b.x || a.y == b.y)
     {
-      const auto r = p1 * (1 - t) + p2 * t;
-
-      if (r.x >= 0 && r.y >= 0 && r.x < size.x && r.y < size.y)
+      bool swapped = false;
+      if (a.x == b.x)
       {
-        const auto x = static_cast<unsigned int>(r.x);
-        const auto y = static_cast<unsigned int>(r.y);
+        swapped = true;
+        std::swap(a.x, a.y);
+        std::swap(b.x, b.y);
+        std::swap(size.x, size.y);
+      }
 
-        bitmap[y * stride / 4 + x] = static_cast<uint32_t>(color);
+      if (a.y >= 0 && a.y < size.y)
+        for (int x = a.x, y = a.y; x <= b.x; ++x)
+          if (x >= 0 && x < size.x)
+          {
+            const size_t i = swapped ? (x * stride / 4 + y)
+                                     : (y * stride / 4 + x);
+
+            bitmap[i] = static_cast<uint32_t>(color);
+          }
+
+      return;
+    }
+    else
+    {
+      bool swapped = false;
+      if (std::abs(a.y - b.y) > std::abs(a.x - b.x))
+      {
+        swapped = true;
+        std::swap(a.x, a.y);
+        std::swap(b.x, b.y);
+        std::swap(size.x, size.y);
+      }
+
+      if (a.x > b.x)
+        std::swap(a, b);
+
+      const int dy = b.y - a.y;
+      const int dx = b.x - a.x;
+
+      if (a.x != b.x)
+      {
+        const int sy = b.y > a.y ? 1 : -1;
+        int y = a.y;
+        int d = 0;
+
+        for (int x = a.x; x < b.x; ++x)
+        {
+          d += 2 * std::abs(dy);
+
+          if (d > dx)
+          {
+            y += sy;
+            d -= 2 * dx;
+          }
+
+          if (x >= 0 && y >= 0 && x < size.x && y < size.y)
+          {
+            const size_t i = swapped ? (x * stride / 4 + y)
+              : (y * stride / 4 + x);
+
+            bitmap[i] = static_cast<uint32_t>(color);
+          }
+        }
       }
     }
   }

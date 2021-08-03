@@ -206,3 +206,16 @@ namespace Math
     return begin + static_cast<T>(std::rand() % static_cast<int>(end - begin));
   }
 }
+
+namespace std
+{
+  template<class T>
+  void swap(Math::TVec2<T>& l, Math::TVec2<T>& r)
+  {
+    Math::TVec2<T> tmp = l;
+    l.x = r.x;
+    l.y = r.y;
+    r.x = tmp.x;
+    r.y = tmp.y;
+  }
+}
